@@ -53,10 +53,9 @@ class Client:
 
     async def check_voted(self, bot_id: int, user_id: int):
         resp = await self.get_request(self.base_url + f"bot/voted/{bot_id}/{user_id}", headers=self.headers)
-
+        
         if "error" in resp:
             raise NotFound("I could not find any votes with that info!")
-
         return CheckVoted(self, resp)
 
     async def bot_info(self, bot_id: int):
@@ -146,9 +145,9 @@ class CheckVoted:
         
         self.voted = response['voted']
 
-        if self.voted:
-            self.vote_time = parser.isoparse(response['votedAt'])
-            self.next_vote = parser.isoparse(response['nextVote']["date"])
+        if self.voted is True:        
+            self.vote_time = parser.isoparse(self.response['votedAt'])
+            self.next_vote = parser.isoparse(self.response['nextVote']["date"])
 
 class BotInfo:
     def __init__(self, main: Client, response: dict):
