@@ -7,7 +7,7 @@ from asyncio.tasks import Task
 from dateutil import parser
 
 class Client:
-    def __init__(self, bot: discord.Client, api_key: str, auto_post: bool = True, **kwargs):
+    def __init__(self, bot: discord.Client, api_key: str, auto_post: bool = False, **kwargs):
         self.base_url = "https://api.voidbots.net/"
         self.bot = bot
         self.api_key = api_key
@@ -21,7 +21,7 @@ class Client:
         self.user_fetch = kwargs.get("user_fetch", False)
         self.headers = {"Authorization": self.api_key}
 
-        if self.auto_post:
+        if self.auto_post is True:
             self.auto_post_task = self.loop.create_task(self.auto_post_stats())
 
     async def auto_post_stats(self):
@@ -148,7 +148,7 @@ class CheckVoted:
 
         if self.voted:
             self.vote_time = parser.isoparse(response['votedAt'])
-            self.next_vote = parser.isoparse(response['nextVote'])
+            self.next_vote = parser.isoparse(response['nextVote']["date"])
 
 class BotInfo:
     def __init__(self, main: Client, response: dict):
