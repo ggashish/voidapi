@@ -25,7 +25,7 @@ class Client:
             return await resp.json()
 
     async def check_voted(self, bot_id: int, user_id: int):
-        resp = await self.get_request(self.url + f"voted/{bot_id}/{user_id}", headers=self.headers)
+        resp = await self.get_request(self.base_url + f"voted/{bot_id}/{user_id}", headers=self.headers)
 
         if "error" in resp:
             raise NotFound("I could not find any votes with that info!")
@@ -33,7 +33,7 @@ class Client:
         return CheckVoted(self, resp)
 
     async def bot_info(self, bot_id: int):
-        resp = await self.get_request(self.url + f"bot/info/{bot_id}", headers=self.headers)
+        resp = await self.get_request(self.base_url + f"bot/info/{bot_id}", headers=self.headers)
 
         if "message" in resp:
             raise UnAuthorized("Invalid authorization key provided")
@@ -44,7 +44,7 @@ class Client:
         return BotInfo(self, resp)
 
     async def bot_analytics(self, bot_id: int):
-        resp = await self.get_request(self.url + f"bot/analytics/{bot_id}", headers=self.headers)
+        resp = await self.get_request(self.base_url + f"bot/analytics/{bot_id}", headers=self.headers)
         
         if "message" in resp:
             raise UnAuthorized("Invalid authorization key provided")
@@ -55,7 +55,7 @@ class Client:
         return BotAnalytics(self, resp)
 
     async def bot_reviews(self, bot_id: int):
-        resp = await self.get_request(self.url + f"bot/reviews/{bot_id}", headers=self.headers)
+        resp = await self.get_request(self.base_url + f"bot/reviews/{bot_id}", headers=self.headers)
 
         if "message" in resp:
             raise UnAuthorized("Invalid authorization key provided")
@@ -67,23 +67,23 @@ class Client:
 
     async def search_bot(self, query: str=None):
         if query is None:
-            resp = await self.post_request(self.url + f"bot/search", headers=self.headers)
+            resp = await self.post_request(self.base_url + f"bot/search", headers=self.headers)
             for bots in resp["bots"]:
                 bots["botid"] = int(bots["botid"])
             return resp
 
         else:
-            resp = await self.post_request(self.url + f"bot/search/{query}", headers=self.headers)
+            resp = await self.post_request(self.base_url + f"bot/search/{query}", headers=self.headers)
             return resp
 
     async def bot_votes(self, bot_id: int):
-        resp = await self.get_request(self.url + f"bot/votes/{bot_id}", headers=self.headers)
+        resp = await self.get_request(self.base_url + f"bot/votes/{bot_id}", headers=self.headers)
         resp["votes"] = [int(i) for i in resp["votes"]]
 
         return resp
 
     async def user_info(self, user_id: int):
-        resp = await self.get_request(self.url + f"user/info/{user_id}", headers=self.headers)
+        resp = await self.get_request(self.base_url + f"user/info/{user_id}", headers=self.headers)
 
         if "message" in resp:
             raise UnAuthorized("Invalid authorization key provided")
@@ -94,7 +94,7 @@ class Client:
         return UserInfo(self, resp)
 
     async def pack_info(self, pack_id: str):
-        resp = await self.get_request(self.url + f"pack/info/{pack_id}", headers=self.headers)
+        resp = await self.get_request(self.base_url + f"pack/info/{pack_id}", headers=self.headers)
 
         if "message" in resp:
             raise UnAuthorized("Invalid authorization key provided")
