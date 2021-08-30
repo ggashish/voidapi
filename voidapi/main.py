@@ -1,7 +1,7 @@
 import discord
 import aiohttp
 
-from exceptions import *
+from .exceptions import *
 from dateutil import parser
 
 class Client:
