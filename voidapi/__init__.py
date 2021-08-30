@@ -1,2 +1,1 @@
-from .client import *
-from .exceptions import *
+from .main import Client
