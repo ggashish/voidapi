@@ -1,7 +1,9 @@
 import discord
 import aiohttp
+import asyncio
 
 from .exceptions import *
+from asyncio.tasks import Task
 from dateutil import parser
 
 class Client:
@@ -13,8 +15,24 @@ class Client:
         self.loop = kwargs.get("loop", bot.loop)
         self.session = aiohttp.ClientSession(loop=self.loop)
 
+        self.auto_post_task = Task
+        self.auto_post_interval = kwargs.get("auto_post_interval", 180)
+
         self.user_fetch = kwargs.get("user_fetch", False)
         self.headers = {"Authorization": self.api_key}
+
+        if self.auto_post:
+            self.auto_post_task = self.loop.create_task(self.auto_post_stats())
+
+    async def auto_post_stats(self):
+        await self.bot.wait_until_ready()
+        while not self.bot.is_closed():
+            try:
+                await self.post_stats(self.bot.user.id, len(self.bot.guilds), self.bot.shard_count)
+            except Exception:
+                pass
+            await asyncio.sleep(self.auto_post_interval)
+
 
     async def get_request(self, url: str, **kwargs):
         async with self.session.get(url, **kwargs) as resp:
@@ -24,8 +42,17 @@ class Client:
         async with self.session.get(url, **kwargs) as resp:
             return await resp.json()
 
+    async def post_stats(self, bot_id: int, server_count: int, shard_count: int = None):
+        data = {"server_count": server_count, "shard_count": shard_count or 0}
+        resp = await self.get_request(self.base_url + f"bot/stats/{bot_id}", headers=self.headers, json=data)
+
+        if "error" in resp:
+            raise NotFound("Authorization header not found.")
+
+        return resp
+
     async def check_voted(self, bot_id: int, user_id: int):
-        resp = await self.get_request(self.base_url + f"voted/{bot_id}/{user_id}", headers=self.headers)
+        resp = await self.get_request(self.base_url + f"bot/voted/{bot_id}/{user_id}", headers=self.headers)
 
         if "error" in resp:
             raise NotFound("I could not find any votes with that info!")
