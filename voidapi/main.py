@@ -2,7 +2,6 @@ import discord
 import aiohttp
 import asyncio
 
-from .exceptions import *
 from asyncio.tasks import Task
 from dateutil import parser
 
@@ -156,6 +155,7 @@ class BotInfo:
         self.response = response
 
         self.bot_id = int(response['botid'])
+        self.prefix = response['prefix']
         self.servers = response['servers']
         self.owners = [int(i) for i in response['owners']]
 
@@ -227,3 +227,9 @@ class PackInfo:
         self.owners = [int(i) for i in response['owners']]
         self.tags = response['tags']
         self.created_at = parser.isoparse(response['created_at'])
+
+class UnAuthorized(Exception):
+    pass
+
+class NotFound(Exception):
+    pass
