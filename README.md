@@ -49,12 +49,14 @@ client = voidapi.Client(bot, api_key)
 # Funtions
 ## `await client.check_voted(bot_id, user_id)`
 Check if a user has voted for a bot.
+
 `Parameters:`
 
  - bot_id ([int](https://docs.python.org/3/library/functions.html#int)) - ID of bot to check for.
  - user_id ([int](https://docs.python.org/3/library/functions.html#int)) -   ID of user to check for.
 
  **`Returns CheckVoted (class):`**
+
 `attributes`:
  - `bot_id` ([int](https://docs.python.org/3/library/functions.html#int)) - ID of the bot
  - `voter_id` ([int](https://docs.python.org/3/library/functions.html#int)) - ID of the voter
@@ -64,11 +66,13 @@ Check if a user has voted for a bot.
 
 ## `await client.bot_info(bot_id)`
 Get a specific bot's information.
+
 `Parameters:`
 
  - bot_id ([int](https://docs.python.org/3/library/functions.html#int)) - ID of bot to check for.
 
  **`Returns BotInfo (class):`**
+
 `attributes`:
  - `bot_id`([int](https://docs.python.org/3/library/functions.html#int)) - ID of the bot.
  - `servers`([int](https://docs.python.org/3/library/functions.html#int)) - Server count if available.
@@ -84,27 +88,32 @@ Get a specific bot's information.
 
 ## `await client.bot_analytics(bot_id)`
 Get the analytics that we store for your bot.
+
 `Parameters:`
 
  - bot_id ([int](https://docs.python.org/3/library/functions.html#int)) - ID of bot to check for.
 
  **`Returns CheckVoted (class):`**
+
 `attributes`:
  - `bot_id`([int](https://docs.python.org/3/library/functions.html#int)) - ID of the bot.
  - `analytics`(List([dict](https://docs.python.org/3/library/stdtypes.html#dict))) - List of dicts of analytics.
  
  ## `await client.bot_reviews(bot_id)`
 Get the reviews are stored for your bot.
+
 `Parameters:`
 
  - bot_id ([int](https://docs.python.org/3/library/functions.html#int)) - ID of bot to check for.
 
  **`Returns BotReviews (class):`**
+
 `attributes`:
  - `analytics`(List([dict](https://docs.python.org/3/library/stdtypes.html#dict))) - List of dicts of reviews if available.
 
  ## `await client.search_bot(query)`
 Search our list of bots using a json api.
+
 `Parameters:`
 
  - bot_id ([str](https://docs.python.org/3/library/stdtypes.html#str)) - Query to search bot.
@@ -116,6 +125,7 @@ Search our list of bots using a json api.
 
  ## `await client.bot_votes(bot_id)`
 Get an array of users who have voted for your bot.
+
 `Parameters:`
 
  - bot_id ([int](https://docs.python.org/3/library/functions.html#int)) - ID of bot to check for.
@@ -128,11 +138,13 @@ Get an array of users who have voted for your bot.
 
 ## `await client.user_info(user_id)`
 Get a specific user's information.
+
 `Parameters:`
 
  - user_id ([int](https://docs.python.org/3/library/functions.html#int)) - The ID of the user to check for.
 
  **`Returns UserInfo (class):`**
+
 `attributes`:
  - `user_id`([int](https://docs.python.org/3/library/functions.html#int)) - ID of the user.
  - `blurb`([str](https://docs.python.org/3/library/stdtypes.html#str)) - Short description of the user.
@@ -148,11 +160,13 @@ Get a specific user's information.
 
 ## `await client.pack_info(pack_id)`
 Get a specific user's information.
+
 `Parameters:`
 
  - pack_id ([str](https://docs.python.org/3/library/stdtypes.html#str)) - The ID of the pack to check for.
 
  **`Returns PackInfo (class):`**
+ 
 `attributes`:
  - `pack_id`([str](https://docs.python.org/3/library/stdtypes.html#str)) - ID of the pack.
  - `name`([str](https://docs.python.org/3/library/stdtypes.html#str)) - Name of the pack.
