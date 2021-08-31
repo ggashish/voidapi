@@ -6,7 +6,7 @@ with open('README.md') as f:
 setup(name='voidapi',
       author='Ashish Yadav',
       author_email='ashugodhai@gmail.com',
-      version='1.0.1',
+      version='1.0.2',
       packages=['voidapi'],
       license='MIT',
       url="https://github.com/ggashish/voidapi",
