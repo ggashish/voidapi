@@ -14,6 +14,7 @@ setup(name='voidapi',
       install_requires = ["aiohttp", "discord.py", "python-dateutil"],
       description='A simple API wrapper for voidbots.net.',
       long_description=readme,
+      long_description_content_type='text/markdown',
       classifiers=[
     'Development Status :: 5 - Production/Stable',
     'License :: OSI Approved :: MIT License',
