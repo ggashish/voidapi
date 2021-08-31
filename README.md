@@ -16,7 +16,7 @@ An Python wrapper for the https://voidbots.net/
 # Installation
 Install via pip (recommended)
 ```py
-soon
+pip install voidapi
 ```
 Install from source
 ```
